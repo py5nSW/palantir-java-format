@@ -27,6 +27,7 @@ apply plugin: 'com.palantir.external-publish'
 apply plugin: 'com.palantir.git-version'
 apply plugin: 'com.palantir.baseline'
 apply plugin: 'com.palantir.consistent-versions'
+apply plugin: 'com.palantir.baseline-java-versions'
 
 version System.env.CIRCLE_TAG ?: gitVersion()
 
@@ -46,8 +47,6 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'org.inferred.processors'
 
-    sourceCompatibility = 11
-    targetCompatibility = 11
 
     tasks.withType(Checkstyle).configureEach {
         enabled = false
@@ -91,4 +90,8 @@ idea.project.ipr.withXml { xml ->
         </option>
     </component>
     '''))
+}
+
+javaVersions {
+    libraryTarget = 11
 }
